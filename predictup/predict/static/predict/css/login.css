@@ -1,0 +1,83 @@
+.login_form_center
+{
+       color: #201f1f;
+    height: 443px;
+    width: 439px;
+    border: 2px solid #b9b2b2;
+    padding: 38px;
+    transform: translate(80%,13%);
+
+    border-radius: 14px;
+
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 100%;
+    background: none;
+    outline: none;
+    text-decoration: none;
+    border: 2px solid white;
+    border-radius:5px;
+        height: 38px;
+
+    color:white;
+}
+input[type=submit]
+{
+    width:100%;
+    height:50px;
+    border: 2px solid #87e8fd;
+
+}
+
+body
+{
+  margin:0;
+  padding:0;
+  background:#2424ad;
+}
+label {
+    display: inline-block;
+    color: white;
+    font-size: 17px;
+}
+#btn
+{border: 2px solid #87e8fd;
+}
+.image_login,img
+{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    top: 100px;
+    right: 244px;
+}
+.hike,img
+{
+        height: 350px;
+    width: 350px;
+    position: absolute;
+    top: 124px;
+    left: 268px;
+}
+
+#log
+{
+    resize: auto;
+    height: 350px;
+    width: 350px;
+    position: absolute;
+    top: 9px;
+    left: 38px;
+        left: -21px;
+
+}
+.alert-danger {
+    color: black;
+    background-color:white;
+    border-color:1px solid red;
+
+}

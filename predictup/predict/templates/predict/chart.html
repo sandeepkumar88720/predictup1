@@ -1,0 +1,446 @@
+<!-- {% if chart %}-->
+<!--    <img src="data:image/png;base64, {{chart|safe}}" >-->
+<!--    {% endif %}-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+  <head>
+       <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="{% static 'predict/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"/>
+      <link href="{% static 'predict/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'predict/css/chart_page.css' %}" rel="stylesheet" type="text/css" />
+    <title>Dash</title>
+
+  </head>
+  <body>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
+  </div>
+</div>
+    <!-- top navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#sidebar"
+          aria-controls="offcanvasExample"
+        >
+          <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+        </button>
+        <a
+          class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
+          href="#"
+          >predictup</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#topNavBar"
+          aria-controls="topNavBar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="topNavBar">
+
+
+
+   <form action="" method="POST" novalidate>
+        {% csrf_token %}
+
+
+
+            {% for fm in search %}
+                     {{fm}}
+            {% endfor %}
+             <input type="submit" value="submit">
+    </form>
+
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle ms-2"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-person-fill"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- top navigation bar -->
+    <!-- offcanvas -->
+    <div
+      class="offcanvas offcanvas-start sidebar-nav bg-dark"
+      tabindex="-1"
+      id="sidebar">
+
+            </li>
+            <li>
+              <a href="#" class="nav-link px-3 active">
+                <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
+            <li>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+                Interface
+              </div>
+            </li>
+            <li>
+              <a
+                class="nav-link px-3 sidebar-link"
+                data-bs-toggle="collapse"
+                href="#layouts"
+              >
+                <span class="me-2"><i class="bi bi-layout-split"></i></span>
+                <span>Layouts</span>
+                <span class="ms-auto">
+                  <span class="right-icon">
+                    <i class="bi bi-chevron-down"></i>
+                  </span>
+                </span>
+              </a>
+              <div class="collapse" id="layouts">
+                <ul class="navbar-nav ps-3">
+                  <li>
+                    <a href="#" class="nav-link px-3">
+                      <span class="me-2"
+                        ><i class="bi bi-speedometer2"></i
+                      ></span>
+                      <span>Dashboard</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-3">
+                <span class="me-2"><i class="bi bi-book-fill"></i></span>
+                <span>Pages</span>
+              </a>
+            </li>
+            <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
+            <li>
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
+                Addons
+              </div>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-3">
+                <span class="me-2"><i class="bi bi-graph-up"></i></span>
+                <span>Charts</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link px-3">
+                <span class="me-2"><i class="bi bi-table"></i></span>
+                <span>Tables</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- offcanvas -->
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-8 mb-3">
+            <div class="card h-100">
+              <div class="card-header">
+                 predicted chart
+              </div>
+              <div class="card-body">
+
+                 {% if chart %}
+                  <h1>{{nm}}</h1>
+    <img src="data:image/png;base64, {{chart|safe}}" height="800px" width="900px"  style="postion:relative; ">
+    {% endif %}
+                  <p>{{bs}}</p>
+
+              </div>
+            </div>
+          </div>
+              <div class="col-md-4 mb-3">
+                   <div class="card-header">
+                 Value
+              </div>
+                    <div class="card-body">
+ <script>
+     const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Host': 'realstonks.p.rapidapi.com',
+		'X-RapidAPI-Key': 'a807569bdbmsheac18feaac0c0b3p1b410djsn1d83a4f979b8'
+	}
+};
+
+fetch('https://realstonks.p.rapidapi.com/AAPL', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
+ </script>
+
+
+
+
+
+
+                    </div>
+              </div>
+
+
+
+
+
+
+        </div>
+        </div>
+<!--        <div class="row">-->
+<!--          <div class="col-md-12 mb-3">-->
+<!--            <div class="card">-->
+<!--              <div class="card-header">-->
+
+<!--              </div>-->
+<!--              <div class="card-body">-->
+<!--                <div class="table-responsive">-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </main>
+       <script src="{% static 'predict/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="{% static 'predict/js/jquery-3.5.1.js' %}"></script>
+       <script src="{% static 'predict/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'predict/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'predict/js/script.js' %}"></script>
+  <script>
+      var new_value_symbol0=document.querySelector('.symbol0')
+     var new_value_open0=document.querySelector('.open_price0')
+     var new_value_high0=document.querySelector('.High_price0')
+     var new_value_low0=document.querySelector('.Low_price0')
+
+     var new_value_symbol1=document.querySelector('.symbol1')
+     var new_value_open1=document.querySelector('.open_price1')
+     var new_value_high1=document.querySelector('.High_price1')
+     var new_value_low1=document.querySelector('.Low_price1')
+
+     var new_value_symbol2=document.querySelector('.symbol2')
+     var new_value_open2=document.querySelector('.open_price2')
+     var new_value_high2=document.querySelector('.High_price2')
+     var new_value_low2=document.querySelector('.Low_price2')
+
+     var new_value_symbol3=document.querySelector('.symbol3')
+     var new_value_open3=document.querySelector('.open_price3')
+     var new_value_high3=document.querySelector('.High_price3')
+     var new_value_low3=document.querySelector('.Low_price3')
+
+     var new_value_symbol4=document.querySelector('.symbol4')
+     var new_value_open4=document.querySelector('.open_price4')
+     var new_value_high4=document.querySelector('.High_price4')
+     var new_value_low4=document.querySelector('.Low_price4')
+
+
+     const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Host': 'nse-data1.p.rapidapi.com',
+		'X-RapidAPI-Key': '831d25c436msh19aa83c6de5ec37p15ca76jsn81e2f088a4b3'
+	}
+};
+
+fetch('https://nse-data1.p.rapidapi.com/top_gainers', options)
+	.then(response => response.json())
+	.then(data=>{
+
+var a1=data['body']['NIFTY']['data'][0]['symbol'];
+    var a2=data['body']['NIFTY']['data'][0]['open_price'];
+    var a3=data['body']['NIFTY']['data'][0]['high_price'];
+    var a4=data['body']['NIFTY']['data'][0]['low_price'];
+    var b1=data['body']['NIFTY']['data'][1]['symbol'];
+    var b2=data['body']['NIFTY']['data'][1]['open_price'];
+    var b3=data['body']['NIFTY']['data'][1]['high_price'];
+    var b4=data['body']['NIFTY']['data'][1]['low_price'];
+    var c1=data['body']['NIFTY']['data'][2]['symbol'];
+    var c2=data['body']['NIFTY']['data'][2]['open_price'];
+    var c3=data['body']['NIFTY']['data'][2]['high_price'];
+    var c4=data['body']['NIFTY']['data'][2]['low_price'];
+      var d1=data['body']['NIFTY']['data'][3]['symbol'];
+    var d2=data['body']['NIFTY']['data'][3]['open_price'];
+    var d3=data['body']['NIFTY']['data'][3]['high_price'];
+    var d4=data['body']['NIFTY']['data'][3]['low_price'];
+  new_value_symbol0.innerHTML="symbol : "+a1
+ new_value_open0.innerHTML="Open price : "+a2
+ new_value_high0.innerHTML="high price : "+a3
+ new_value_low0.innerHTML="low price : "+a4
+
+
+
+
+              new_value_symbol1.innerHTML="symbol : "+b1
+               new_value_open1.innerHTML="Open price : "+b2
+                new_value_high1.innerHTML="high price : "+b3
+                 new_value_low1.innerHTML="low price : "+b4
+
+
+
+
+              new_value_symbol2.innerHTML="symbol : "+c1
+               new_value_open2.innerHTML="Open price : "+c2
+                new_value_high2.innerHTML="high price : "+c3
+                 new_value_low2.innerHTML="low price : "+c4
+
+
+
+
+              new_value_symbol3.innerHTML="symbol : "+d1
+               new_value_open3.innerHTML="Open price : "+d2
+                new_value_high3.innerHTML="high price : "+d3
+                 new_value_low3.innerHTML="low price : "+d4
+
+      var e1=data['body']['NIFTY']['data'][4]['symbol'];
+    var e2=data['body']['NIFTY']['data'][4]['open_price'];
+    var e3=data['body']['NIFTY']['data'][4]['high_price'];
+    var e4=data['body']['NIFTY']['data'][4]['low_price'];
+
+
+              new_value_symbol4.innerHTML="symbol : "+e1
+               new_value_open4.innerHTML="Open price : "+e2
+                new_value_high4.innerHTML="high price : "+e3
+                 new_value_low4.innerHTML="low price : "+e4
+
+
+
+  })
+	.catch(err => console.error(err));
+  </script>
+  <script>
+     var lnew_value_symbol0=document.querySelector('.lsymbol0')
+     var lnew_value_open0=document.querySelector('.lopen_price0')
+     var lnew_value_high0=document.querySelector('.lHigh_price0')
+     var lnew_value_low0=document.querySelector('.lLow_price0')
+
+     var lnew_value_symbol1=document.querySelector('.lsymbol1')
+     var lnew_value_open1=document.querySelector('.lopen_price1')
+     var lnew_value_high1=document.querySelector('.lHigh_price1')
+     var lnew_value_low1=document.querySelector('.lLow_price1')
+
+     var lnew_value_symbol2=document.querySelector('.lsymbol2')
+     var lnew_value_open2=document.querySelector('.lopen_price2')
+     var lnew_value_high2=document.querySelector('.lHigh_price2')
+     var lnew_value_low2=document.querySelector('.lLow_price2')
+
+     var lnew_value_symbol3=document.querySelector('.lsymbol3')
+     var lnew_value_open3=document.querySelector('.lopen_price3')
+     var lnew_value_high3=document.querySelector('.lHigh_price3')
+     var lnew_value_low3=document.querySelector('.lLow_price3')
+
+     var lnew_value_symbol4=document.querySelector('.lsymbol4')
+     var lnew_value_open4=document.querySelector('.lopen_price4')
+     var lnew_value_high4=document.querySelector('.lHigh_price4')
+     var lnew_value_low4=document.querySelector('.lLow_price4')
+      const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Host': 'nse-data1.p.rapidapi.com',
+		'X-RapidAPI-Key': '831d25c436msh19aa83c6de5ec37p15ca76jsn81e2f088a4b3'
+	}
+};
+
+fetch('https://nse-data1.p.rapidapi.com/top_loosers', options)
+	.then(response => response.json())
+	.then(data =>{
+var la1=data['body']['NIFTY']['data'][0]['symbol'];
+    var la2=data['body']['NIFTY']['data'][0]['open_price'];
+    var la3=data['body']['NIFTY']['data'][0]['high_price'];
+    var la4=data['body']['NIFTY']['data'][0]['low_price'];
+    var lb1=data['body']['NIFTY']['data'][1]['symbol'];
+    var lb2=data['body']['NIFTY']['data'][1]['open_price'];
+    var lb3=data['body']['NIFTY']['data'][1]['high_price'];
+    var lb4=data['body']['NIFTY']['data'][1]['low_price'];
+    var lc1=data['body']['NIFTY']['data'][2]['symbol'];
+    var lc2=data['body']['NIFTY']['data'][2]['open_price'];
+    var lc3=data['body']['NIFTY']['data'][2]['high_price'];
+    var lc4=data['body']['NIFTY']['data'][2]['low_price'];
+      var ld1=data['body']['NIFTY']['data'][3]['symbol'];
+    var ld2=data['body']['NIFTY']['data'][3]['open_price'];
+    var ld3=data['body']['NIFTY']['data'][3]['high_price'];
+    var ld4=data['body']['NIFTY']['data'][3]['low_price'];
+  lnew_value_symbol0.innerHTML="symbol : "+la1
+ lnew_value_open0.innerHTML="Open price : "+la2
+ lnew_value_high0.innerHTML="high price : "+la3
+ lnew_value_low0.innerHTML="low price : "+la4
+
+
+
+
+              lnew_value_symbol1.innerHTML="symbol : "+lb1
+               lnew_value_open1.innerHTML="Open price : "+lb2
+                lnew_value_high1.innerHTML="high price : "+lb3
+                 lnew_value_low1.innerHTML="low price : "+lb4
+
+
+
+
+              lnew_value_symbol2.innerHTML="symbol : "+lc1
+               lnew_value_open2.innerHTML="Open price : "+lc2
+                lnew_value_high2.innerHTML="high price : "+lc3
+                 lnew_value_low2.innerHTML="low price : "+lc4
+
+
+
+
+              lnew_value_symbol3.innerHTML="symbol : "+ld1
+               lnew_value_open3.innerHTML="Open price : "+ld2
+                lnew_value_high3.innerHTML="high price : "+ld3
+                 lnew_value_low3.innerHTML="low price : "+ld4
+
+      var le1=data['body']['NIFTY']['data'][4]['symbol'];
+    var le2=data['body']['NIFTY']['data'][4]['open_price'];
+    var le3=data['body']['NIFTY']['data'][4]['high_price'];
+    var le4=data['body']['NIFTY']['data'][4]['low_price'];
+
+
+              lnew_value_symbol4.innerHTML="symbol : "+le1
+               lnew_value_open4.innerHTML="Open price : "+le2
+                lnew_value_high4.innerHTML="high price : "+le3
+                 lnew_value_low4.innerHTML="low price : "+le4
+
+
+
+	})
+	.catch(err => console.error(err));
+  </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.menu_bar
+{
+    background-color: #2f2fa2;
+    color: #000;
+}
+.nav-link,.navbar-brand
+{
+    color: white;
+   
+}
+body
+{
+    background-color: #2f2fa2;
+}
+
+#main_heading
+{
+    color: white;
+padding-top:50px;
+font-size: 55px;
+}
+#main_para
+{
+    color: white;
+    font-size: 16px;
+    margin-bottom: 42px;
+}
+ #resize_img
+ {
+    margin-left: 110px;
+    margin-top: 20px;
+ }
+ .setting
+ {
+     margin-top: 56px;
+ }
+ .btn-primary {
+    color: #fff;
+    background-color: #3662f1;
+    border-color: #f1f1f1;
+    height: 53px;
+    font-size: 20px;
+    border-radius: 9px;
+
+}
+.navbar-brand
+{
+    font-size: 30px;
+}
+.animate__animated.animate__backInLeft {
+    animation-duration: 1000ms;
+  }

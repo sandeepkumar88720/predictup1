@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="chart"></div>
+
+{{context}}
+
+</body>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<!--<script src="{% static 'predict/js/index.js' %}"></script>-->
+<script>
+
+var trace1 = {
+
+  x: ['Date'],
+
+  close: ['Close'],
+
+  decreasing: {line: {color: '#7F7F7F'}},
+
+  high: ['High'],
+
+  increasing: {line: {color: '#17BECF'}},
+
+  line: {color: 'rgba(31,119,180,1)'},
+
+  low: ['Low'],
+
+  open: ['Open'],
+
+  type: 'candlestick',
+  xaxis: 'x',
+  yaxis: 'y'
+};
+
+var data = [trace1];
+
+var layout = {
+  dragmode: 'zoom',
+  margin: {
+    r: 10,
+    t: 25,
+    b: 40,
+    l: 60
+  },
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    domain: [0, 1],
+    range: ['2017-01-03 12:00', '2017-02-15 12:00'],
+    rangeslider: {range: ['2017-01-03 12:00', '2017-02-15 12:00']},
+    title: 'Date',
+    type: 'date'
+  },
+  yaxis: {
+    autorange: true,
+    domain: [0, 1],
+    range: [114.609999778, 137.410004222],
+    type: 'linear'
+  }
+};
+
+Plotly.newPlot('chart', data, layout);
+</script>
+</html>
